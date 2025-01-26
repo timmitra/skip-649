@@ -27,8 +27,16 @@ extension String {
         result = result.replacingOccurrences(of: "&rsquo;", with: "'")
         result = result.replacingOccurrences(of: "&lsquo;", with: "'")
         result = result.replacingOccurrences(of: "&nbsp;", with: " ")
-        result = result.replacingOccurrences(of: "<[^>]+>", with: "", options: .regularExpression)
-        
+        // Remove HTML tags
+        let parts = result.components(separatedBy: "<")
+        result = parts.map { part in
+            if let endIndex = part.firstIndex(of: ">") {
+                let index = part.index(after: endIndex)
+                return String(part[index...])
+            }
+            return part
+        }.joined()
+
         return result
     }
 }
