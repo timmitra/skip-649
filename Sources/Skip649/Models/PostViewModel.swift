@@ -14,7 +14,7 @@ class PostViewModel {
     private let restData = RestData()
     
     func fetchPosts() {
-        let url = URL(string: "https://hushrealty.ca/concierge/wp-json/wp/v2/posts")!
+        let url = URL(string: "\(Constants.wpURL)/wp-json/wp/v2/posts")!
         let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
             if let error = error {
                 print("Error fetching posts: \(error)")
