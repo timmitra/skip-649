@@ -26,11 +26,6 @@ class PostViewModel {
                 return
             }
             
-            // Debug: Print raw JSON
-            if let jsonString = String(data: data, encoding: .utf8) {
-                print("Raw JSON: \(jsonString)")
-            }
-            
             do {
                 let decodedPosts = try JSONDecoder().decode([Post].self, from: data)
                 DispatchQueue.main.async {
@@ -38,7 +33,6 @@ class PostViewModel {
                     print("Fetched \(decodedPosts.count) posts")
                     // Debug featured images
                     for post in decodedPosts {
-                        print("Post \(post.id) embedded: \(String(describing: post.embedded))")
                         if let imageURL = post.featuredImageURL {
                             print("Post \(post.id) has image: \(imageURL)")
                         }

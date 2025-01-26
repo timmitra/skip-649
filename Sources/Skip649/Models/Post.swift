@@ -13,7 +13,7 @@ struct Post: Codable {
     var content: Rendered
     var date: String  // Changed from timestamp to date
     var categories: [Int]
-    var embedded: Embedded?  // Add this for featured media
+    var _embedded: Embedded?  // Add this for featured media
     
     struct Rendered: Codable {
         var rendered: String
@@ -28,25 +28,14 @@ struct Post: Codable {
     }
     
     struct Media: Codable {
-        var sourceUrl: String?
-        
-        enum CodingKeys: String, CodingKey {
-            case sourceUrl = "source_url"
+            var sourceUrl: String?
+            var mediaDetails: MediaDetails?
+            
+            enum CodingKeys: String, CodingKey {
+                case sourceUrl = "source_url"
+                case mediaDetails = "media_details"
+            }
         }
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case content
-        case date
-        case categories
-        case embedded = "_embedded"  // Map to _embedded in JSON
-    }
-    
-//    var featuredImageURL: String? {
-//        embedded?.wpFeaturedmedia?.first?.sourceUrl
-//    }
 
     struct MediaDetails: Codable {
         var sizes: Sizes?
@@ -68,9 +57,9 @@ struct Post: Codable {
     
     var featuredImageURL: String? {
         // Try to get medium size first, then large, then original source URL
-       // embedded?.wpFeaturedmedia?.first?.mediaDetails?.sizes?.medium?.sourceUrl ??
-       // embedded?.wpFeaturedmedia?.first?.mediaDetails?.sizes?.large?.sourceUrl ??
-        embedded?.wpFeaturedmedia?.first?.sourceUrl
+        _embedded?.wpFeaturedmedia?.first?.mediaDetails?.sizes?.medium?.sourceUrl ??
+        _embedded?.wpFeaturedmedia?.first?.mediaDetails?.sizes?.large?.sourceUrl ??
+        _embedded?.wpFeaturedmedia?.first?.sourceUrl
     }
 }
 
@@ -82,7 +71,7 @@ extension Post {
             content: Rendered(rendered: "<p>Classic French cuisine in an intimate bistro setting. Enjoy traditional recipes with a modern twist, fresh-baked pastries, and an extensive French wine selection. Perfect for romantic dinners.</p>\n"),
             date: "2024-11-26T19:17:07",
             categories: [5],
-            embedded: Embedded(wpFeaturedmedia: [Media(sourceUrl: "https://hushrealty.ca/concierge/wp-content/uploads/2025/01/pexels-eugenia-remark-5767088-14558326-scaled.jpg")])
+            _embedded: Embedded(wpFeaturedmedia: [Media(sourceUrl: "https://hushrealty.ca/concierge/wp-content/uploads/2025/01/pexels-eugenia-remark-5767088-14558326-scaled.jpg")])
         )
     ]
 }
