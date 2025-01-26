@@ -16,18 +16,25 @@ extension View {
 }
 
 extension String {
+    
+    static let htmlReplacements: [String: String] = [
+            "&quot;": "\"",
+            "&amp;": "&",
+            "&lt;": "<",
+            "&gt;": ">",
+            "&#039;": "'",
+            "&#8217;": "'",
+            "&#8211;": "–",
+            "&rsquo;": "'",
+            "&lsquo;": "'",
+            "&nbsp;": " "
+        ]
+    
     func decodeHTML() -> String {
         var result = self
-        result = result.replacingOccurrences(of: "&quot;", with: "\"")
-        result = result.replacingOccurrences(of: "&amp;", with: "&")
-        result = result.replacingOccurrences(of: "&lt;", with: "<")
-        result = result.replacingOccurrences(of: "&gt;", with: ">")
-        result = result.replacingOccurrences(of: "&#039;", with: "'")
-        result = result.replacingOccurrences(of: "&#8217;", with: "'")
-        result = result.replacingOccurrences(of: "&#8211;", with: "–")
-        result = result.replacingOccurrences(of: "&rsquo;", with: "'")
-        result = result.replacingOccurrences(of: "&lsquo;", with: "'")
-        result = result.replacingOccurrences(of: "&nbsp;", with: " ")
+        for (entity, replacement) in String.htmlReplacements {
+            result = result.replacingOccurrences(of: entity, with: replacement)
+        }
         // Remove HTML tags
         let parts = result.components(separatedBy: "<")
         result = parts.map { part in
@@ -37,7 +44,7 @@ extension String {
             }
             return part
         }.joined()
-
+        
         return result
     }
 }
