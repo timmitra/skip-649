@@ -24,6 +24,7 @@ extension String {
         result = result.replacingOccurrences(of: "&gt;", with: ">")
         result = result.replacingOccurrences(of: "&#039;", with: "'")
         result = result.replacingOccurrences(of: "&#8217;", with: "'")
+        result = result.replacingOccurrences(of: "&#8211;", with: "–")
         result = result.replacingOccurrences(of: "&rsquo;", with: "'")
         result = result.replacingOccurrences(of: "&lsquo;", with: "'")
         result = result.replacingOccurrences(of: "&nbsp;", with: " ")
