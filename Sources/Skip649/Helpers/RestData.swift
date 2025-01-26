@@ -11,7 +11,7 @@ import Foundation
 struct RestData {
     
     func fetchPosts() {
-        let url = URL(string: "https://hushrealty.ca/concierge/wp-json/wp/v2/pages")!
+        let url = URL(string: "\(Constants.wpURL)/wp-json/wp/v2/pages")!
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let data = data else { return }
             do {

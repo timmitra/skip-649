@@ -10,29 +10,46 @@ import SwiftUI
 
 struct PostListView: View {
     @State private var viewModel = PostViewModel()
+    @State private var categories: [Category] = []
     
     var body: some View {
         List(viewModel.posts, id: \.id) { post in
-            VStack(alignment: .leading, spacing: 8) {
-                // Safely decode HTML content
-                let decodedTitle = post.title.rendered.decodeHTML()
-                let decodedContent = post.content.rendered.decodeHTML()
-                
-                Text(decodedTitle)
-                    .font(.headline)
-                Text(decodedContent)
-                    .font(.body)
-                    .lineLimit(2)
-            }
-            .padding(.vertical, 8)
+            PostListRowView(post: post, categories: categories)
         }
         .listStyle(.plain)
         .onAppear {
             viewModel.fetchPosts()
+            fetchCategories()
         }
         .refreshable {
             viewModel.fetchPosts()
+            fetchCategories()
         }
+    }
+    
+    private func fetchCategories() {
+        let url = URL(string: "\(Constants.wpURL)/wp-json/wp/v2/categories")!
+        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("Error fetching categories: \(error)")
+                return
+            }
+            
+            guard let data = data else {
+                print("No category data received")
+                return
+            }
+            
+            do {
+                let decodedCategories = try JSONDecoder().decode([Category].self, from: data)
+                DispatchQueue.main.async {
+                    self.categories = decodedCategories
+                }
+            } catch {
+                print("Category decoding error: \(error)")
+            }
+        }
+        task.resume()
     }
 }
 
