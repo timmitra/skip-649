@@ -1,12 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%lld Items" : {
-
-    },
-    "Add" : {
-
-    },
     "Appearance" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -104,6 +98,7 @@
       }
     },
     "Home" : {
+      "extractionState" : "stale",
       "localizations" : {
         "es" : {
           "stringUnit" : {
