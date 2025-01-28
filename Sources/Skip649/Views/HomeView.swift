@@ -32,6 +32,26 @@ struct HomeView: View {
         }
     }
     
+    func droidIcon(for id: Int) -> String {
+        switch id {
+        case 8: return "Icons.Outlined.Home"  // Hotel
+        case 9: return "house"  // Villas
+        case 5: return "restaurant"  // Restaurants
+        case 10: return "Icons.Outlined.ShoppingCart"  // Shopping
+        case 11: return "car"  // Car Service
+        case 7: return "sailboat"  // Water Activities
+        case 12: return "beach.umbrella"  // Land Activities
+        case 6: return "apple.meditate"  // Spas
+        case 13: return "frying.pan"  // Chefs
+        case 14: return "bell" // Concierge
+        case 15: return "guitars" // Entertainment
+        case 16: return "backpack" // Provisions
+        case 17: return "wrench" // Services
+        default: return "star" // Any other categories go to the end
+        }
+    }
+
+    
     var sortedCategories: [Category] {
         categories.sorted { $0.displayOrder < $1.displayOrder }
     }
@@ -46,16 +66,22 @@ struct HomeView: View {
                 ScrollView(.horizontal) {
                   LazyHStack() {
                        ForEach(sortedCategories, id: \.id) { category in
-//                           NavigationLink {
-//                                PostListView(categoryId: category.id)
-//                            } label: {
+                           NavigationLink {
+                                PostListView()
+                            } label: {
                                 VStack {
+//#if !SKIP
                                     Image(systemName: categoryIcon(for: category.id))
+                                    
+//                                    #else
+//                                        Image(systemName: droidIcon(for: category.id))
+//                                          
+//#endif
                                    Text(category.name)
                                         .font(.caption)
                                 }
                                 .font(.largeTitle)
-                           //}
+                           }
                         }
                     }
                     .frame(height: 80)
@@ -75,11 +101,11 @@ struct HomeView: View {
     }
 }
 
-#Preview {
-    HomeView()
-        .onAppear {
-            var homeView = HomeView()
-            homeView.categories = Category.categoryMocks
-           // homeView.posts = Post.postMocks
-        }
-}
+//#Preview {
+//    HomeView()
+//        .onAppear {
+//            var homeView = HomeView()
+//            homeView.categories = Category.categoryMocks
+//           // homeView.posts = Post.postMocks
+//        }
+//}
