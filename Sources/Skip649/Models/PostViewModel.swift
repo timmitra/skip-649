@@ -11,37 +11,12 @@ import SwiftUI
 @Observable
 class PostViewModel {
     var posts: [Post] = []
-    private let restData = RestData()
+    private let restData = RestData.shared
     
     func fetchPosts() {
-        let url = URL(string: "\(Constants.wpURL)/wp-json/wp/v2/posts?_embed")!
-        let task = URLSession.shared.dataTask(with: url) { [weak self] (data, response, error) in
-            if let error = error {
-                print("Error fetching posts: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-            
-            do {
-                let decodedPosts = try JSONDecoder().decode([Post].self, from: data)
-                DispatchQueue.main.async {
-                    self?.posts = decodedPosts
-                    print("Fetched \(decodedPosts.count) posts")
-                    // Debug featured images
-                    for post in decodedPosts {
-                        if let imageURL = post.featuredImageURL {
-                            print("Post \(post.id) has image: \(imageURL)")
-                        }
-                    }
-                }
-            } catch {
-                print("Decoding error: \(error)")
-            }
+        restData.fetchPosts { fetchedPosts in
+            self.posts = fetchedPosts
+            print("Fetched \(fetchedPosts.count) posts")
         }
-        task.resume()
     }
 }
