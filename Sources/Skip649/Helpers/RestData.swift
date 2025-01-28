@@ -38,7 +38,7 @@ struct RestData {
     }
     
     func fetchCategories(completion: @escaping ([Category]) -> Void) {
-        let url = URL(string: "\(Constants.wpURL)wp-json/wp/v2/categories")!
+        let url = URL(string: "\(Constants.wpURL)wp-json/wp/v2/categories?per_page=20&exclude=1")!
         
         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
