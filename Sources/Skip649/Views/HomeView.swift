@@ -59,9 +59,9 @@ struct HomeView: View {
     var body: some View {
        // Text("HomeView")
         NavigationStack {
-//            Group {
-//             //   HomeHeaderView()
-//            }
+            Group {
+                HomeHeaderView()
+            }
             Group {
                 ScrollView(.horizontal) {
                   LazyHStack() {
