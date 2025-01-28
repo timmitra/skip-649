@@ -6,22 +6,13 @@
 //
 
 import SwiftUI
-import Collections
-import SwiftData
 
 struct HomeView: View {
 
-    @Environment(\.modelContext) private var modelContext
-    @Query private var categories: [Category]
-    @StateObject private var restData: RestData
-    @State private var alertService = AlertService(
-      "https://it-guy.com/apns/Six49Life/messages.json"
-    )
-    
-    init(modelContext: ModelContext) {
-        _restData = StateObject(wrappedValue: RestData(modelContext: modelContext))
-    }
-    
+    private let restData = RestData.shared
+    @State var categories: [Category] = []
+   // @State var posts: [Post] = []
+        
     func categoryIcon(for id: Int) -> String {
         switch id {
         case 8: return "house.lodge"  // Hotel
@@ -46,40 +37,49 @@ struct HomeView: View {
     }
         
     var body: some View {
+       // Text("HomeView")
         NavigationStack {
-            Group {
-                HomeHeaderView()
-            }
+//            Group {
+//             //   HomeHeaderView()
+//            }
             Group {
                 ScrollView(.horizontal) {
-                    LazyHStack(/*alignment: .firstTextBaseline*/) {
-                        ForEach(sortedCategories, id: \.id) { category in
-                            NavigationLink {
-                                PostListView(modelContext: modelContext, categoryId: category.id)
-                            } label: {
+                  LazyHStack() {
+                       ForEach(sortedCategories, id: \.id) { category in
+//                           NavigationLink {
+//                                PostListView(categoryId: category.id)
+//                            } label: {
                                 VStack {
                                     Image(systemName: categoryIcon(for: category.id))
-                                    Text(category.name)
+                                   Text(category.name)
                                         .font(.caption)
                                 }
                                 .font(.largeTitle)
-                            }
+                           //}
                         }
                     }
                     .frame(height: 80)
                 }
             }
-            Group {
-                HomeCardsView(modelContext: modelContext)            }
-            Spacer()
+//            Group {
+//           //     HomeCardsView()
+//            }
+//            Spacer()
+        }
+        .onAppear {
+            restData.fetchCategories { fetchedCategories in
+                self.categories = fetchedCategories
+            }
         }
         .padding()
     }
 }
 
 #Preview {
-    let config = ModelConfiguration(isStoredInMemoryOnly: true)
-    let container = try! ModelContainer(for: Post.self, Category.self, configurations: config)
-    HomeView(modelContext: container.mainContext)
-        .modelContainer(container)
+    HomeView()
+        .onAppear {
+            var homeView = HomeView()
+            homeView.categories = Category.categoryMocks
+           // homeView.posts = Post.postMocks
+        }
 }
