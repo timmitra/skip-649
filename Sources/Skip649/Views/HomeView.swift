@@ -59,10 +59,9 @@ struct HomeView: View {
     var body: some View {
        // Text("HomeView")
         NavigationStack {
-            Group {
+            VStack {
                 HomeHeaderView()
-            }
-            Group {
+            
                 ScrollView(.horizontal) {
                   LazyHStack() {
                        ForEach(sortedCategories, id: \.id) { category in
@@ -87,10 +86,7 @@ struct HomeView: View {
                     .frame(height: 80)
                 }
             }
-//            Group {
 //           //     HomeCardsView()
-//            }
-//            Spacer()
         }
         .onAppear {
             restData.fetchCategories { fetchedCategories in
