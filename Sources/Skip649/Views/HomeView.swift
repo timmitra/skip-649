@@ -86,7 +86,8 @@ struct HomeView: View {
                     .frame(height: 80)
                 }
             }
-//           //     HomeCardsView()
+           // Spacer()
+            HomeCardsView()
         }
         .onAppear {
             restData.fetchCategories { fetchedCategories in
@@ -97,11 +98,11 @@ struct HomeView: View {
     }
 }
 
-//#Preview {
-//    HomeView()
-//        .onAppear {
-//            var homeView = HomeView()
-//            homeView.categories = Category.categoryMocks
-//           // homeView.posts = Post.postMocks
-//        }
-//}
+#Preview {
+    HomeView()
+        .onAppear {
+            var homeView = HomeView()
+            homeView.categories = Category.categoryMocks
+           // homeView.posts = Post.postMocks
+        }
+}
