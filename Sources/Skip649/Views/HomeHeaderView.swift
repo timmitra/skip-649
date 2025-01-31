@@ -18,13 +18,17 @@ struct HomeHeaderView: View {
             NavigationLink {
                 SettingsView()
             } label: {
-                Image(systemName: "gear")
+                Image(systemName: "gearshape")
             }
-            Image(systemName: "bell.fill")
+            NavigationLink {
+                // TODO
+            } label: {
+                Image(systemName: "bell.fill")
+            }
             NavigationLink {
                 ProfileView()
             } label: {
-                Image(systemName: "person.circle")
+                Image(systemName: "person.crop.circle")
             }
             
         }
