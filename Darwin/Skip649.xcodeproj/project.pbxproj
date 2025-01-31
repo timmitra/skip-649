@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2AD693AD2D48B74500E315CC /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AD693AC2D48B74500E315CC /* ColorPalette.xcassets */; };
 		49231BAC2AC5BCEF00F98ADF /* Skip649App in Frameworks */ = {isa = PBXBuildFile; productRef = 49231BAB2AC5BCEF00F98ADF /* Skip649App */; };
 		49231BAD2AC5BCEF00F98ADF /* Skip649App in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 49231BAB2AC5BCEF00F98ADF /* Skip649App */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		496BDBEE2B8A7E9C00C09264 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 496BDBED2B8A7E9C00C09264 /* Localizable.xcstrings */; };
@@ -29,6 +30,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2AD693AC2D48B74500E315CC /* ColorPalette.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPalette.xcassets; sourceTree = "<group>"; };
 		4900101C2BACEA710000DE33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		493609562A6B7EAE00C401E2 /* Skip649 */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Skip649; path = ..; sourceTree = "<group>"; };
 		496BDBEB2B89A47800C09264 /* Skip649.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Skip649.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,6 +89,7 @@
 		49F90C2A2A52156200F06D93 /* App */ = {
 			isa = PBXGroup;
 			children = (
+				2AD693AC2D48B74500E315CC /* ColorPalette.xcassets */,
 				49F90C2B2A52156200F06D93 /* Skip649AppMain.swift */,
 				49F90C2F2A52156300F06D93 /* Assets.xcassets */,
 				49F90C312A52156300F06D93 /* Entitlements.plist */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				499CD4402AC5B799001AE8D8 /* Assets.xcassets in Resources */,
+				2AD693AD2D48B74500E315CC /* ColorPalette.xcassets in Resources */,
 				496BDBEE2B8A7E9C00C09264 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
