@@ -5,7 +5,6 @@
 //  Created by Tim Mitra on 2025-01-13.
 //
 
-
 import SwiftUI
 
 struct ProfileView: View {
@@ -14,7 +13,7 @@ struct ProfileView: View {
     @State private var notificationsEnabled: Bool = false
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text("Profile Picture")) {
                     Image("profile_picture_placeholder") // Placeholder image

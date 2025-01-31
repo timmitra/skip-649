@@ -18,7 +18,7 @@ struct SettingsView: View {
     private let languages = ["English", "French", "Spanish"]
     
     var body: some View {
-        NavigationView {
+        VStack {
             Form {
                 // Notifications section
                 Section(header: Text("Notifications")) {
