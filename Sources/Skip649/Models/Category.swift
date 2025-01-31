@@ -52,6 +52,27 @@ extension Category {
             link: "https://hushrealty.ca/concierge/category/car-service/",
             taxonomy: "category",
             parent: 0
+        ),
+        .init(
+            id: 11,
+            name: "Car Service",
+            slug: "car-service",
+            count: 4,
+            description: "",
+            link: "https://hushrealty.ca/concierge/category/car-service/",
+            taxonomy: "category",
+            parent: 0
+        ),
+        .init(
+            id: 11,
+            name: "Car Service",
+            slug: "car-service",
+            count: 4,
+            description: "",
+            link: "https://hushrealty.ca/concierge/category/car-service/",
+            taxonomy: "category",
+            parent: 0
         )
+
     ]
 }
