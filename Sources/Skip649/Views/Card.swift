@@ -19,10 +19,10 @@ struct Card<Content: View>: View {
     var body: some View {
         content
         .frame(maxWidth: .infinity)
-           // .background(Constant.color.bgDefault)
+            .background(Constant.color.bgDefault)
         .cornerRadius(8)
         .shadow(radius: 8)
-        .padding([.top, .leading, .trailing])
+       // .padding([.top, .leading, .trailing])
     }
 }
 
