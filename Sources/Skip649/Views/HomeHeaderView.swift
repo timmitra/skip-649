@@ -18,7 +18,7 @@ struct HomeHeaderView: View {
             NavigationLink {
                 SettingsView()
             } label: {
-                Image(systemName: "gearshape")
+                Image(systemName: "gear")
             }
             NavigationLink {
                 // TODO
@@ -28,7 +28,7 @@ struct HomeHeaderView: View {
             NavigationLink {
                 ProfileView()
             } label: {
-                Image(systemName: "person.crop.circle")
+                Image(systemName: "person.circle")
             }
             
         }
