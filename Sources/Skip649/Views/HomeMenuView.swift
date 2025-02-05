@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeMenuView: View {
     
-    var sortedCategories: [Category] = []
+    let sortedCategories: [Category]
     func categoryIcon(for id: Int) -> String {
         switch id {
         case 8: return "house.lodge"  // Hotel

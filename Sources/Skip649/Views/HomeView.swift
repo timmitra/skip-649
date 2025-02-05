@@ -27,12 +27,18 @@ struct HomeView: View {
                 HomeCardsView()
             }
         }
+        .padding()
         .onAppear {
-            restData.fetchCategories { fetchedCategories in
-                self.categories = fetchedCategories
+            //             categories = try await restData.fetchCategories()
+            Task {
+                do {
+                    categories = try await restData.fetchCategories()
+                } catch {
+                    // handle error
+                    print("Error fetching categories: \(error)")
+                }
             }
         }
-        .padding()
     }
 }
 

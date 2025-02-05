@@ -13,10 +13,15 @@ class PostViewModel {
     var posts: [Post] = []
     private let restData = RestData.shared
     
-    func fetchPosts() {
-        restData.fetchPosts { fetchedPosts in
-            self.posts = fetchedPosts
-            print("Fetched \(fetchedPosts.count) posts")
-        }
+    func fetchPosts()  async throws {
+        posts = try await restData.fetchPosts()
+        print("Fetched \(posts.count) posts")
     }
+    
+//    func fetchPostsByCategory(_ category: Int) {
+//        restData.fetchPosts(byCategory: category) { fetchedPosts in
+//            self.posts = fetchedPosts
+//            print("Fetched \(fetchedPosts.count) posts")
+//        }
+//    }
 }

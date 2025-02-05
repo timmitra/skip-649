@@ -54,11 +54,14 @@ struct HomeCardsView: View {
             }
         }
         .onAppear {
-            viewModel.fetchPosts()
-          //  restData.fetchData {
-                // After fetching, update random posts
-                // randomPosts = Array(restData.posts.shuffled().prefix(8))
-          //  }
+            Task {
+                do {
+                    try await viewModel.fetchPosts()
+                } catch {
+                    print("Error fetching posts: \(error)")
+                    // Handle the error appropriately
+                }
+            }
         }
     }
 }

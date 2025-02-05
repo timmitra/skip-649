@@ -11,55 +11,27 @@ import Foundation
 struct RestData {
     static let shared = RestData()  // Add singleton instance
     
-    func fetchPosts(completion: @escaping ([Post]) -> Void) {
+    func fetchPosts() async throws -> [Post] {
         let url = URL(string: "\(Constants.wpURL)wp-json/wp/v2/posts?_embed")!
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error fetching posts: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-            
-            do {
-                let decodedPosts = try JSONDecoder().decode([Post].self, from: data)
-                DispatchQueue.main.async {
-                    completion(decodedPosts)
-                }
-            } catch {
-                print("Decoding error: \(error)")
-            }
-        }
-        task.resume()
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decodedPosts = try JSONDecoder().decode([Post].self, from: data)
+        return decodedPosts
     }
     
-    func fetchCategories(completion: @escaping ([Category]) -> Void) {
+    func fetchPostsByCategory(categoryId: Int) async throws -> [Post] {
+        let url = URL(string: "\(Constants.wpURL)wp-json/wp/v2/posts?categories=\(categoryId)&_embed")!
+        
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decodedPosts = try JSONDecoder().decode([Post].self, from: data)
+        return decodedPosts
+    }
+    
+    func fetchCategories() async throws -> [Category] {
         let url = URL(string: "\(Constants.wpURL)wp-json/wp/v2/categories?per_page=20&exclude=1")!
         
-        let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Error fetching categories: \(error)")
-                return
-            }
-            
-            guard let data = data else {
-                print("No category data received")
-                return
-            }
-            
-            do {
-                let decodedCategories = try JSONDecoder().decode([Category].self, from: data)
-                DispatchQueue.main.async {
-                    completion(decodedCategories)
-                }
-            } catch {
-                print("Category decoding error: \(error)")
-            }
-        }
-        task.resume()
+        let (data, _) = try await URLSession.shared.data(from: url)
+        let decodedCategories = try JSONDecoder().decode([Category].self, from: data)
+        return decodedCategories
     }
 }
