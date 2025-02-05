@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeMenuView: View {
     
     let sortedCategories: [Category]
+    @State private var viewModel = PostViewModel()
+    
     func categoryIcon(for id: Int) -> String {
         switch id {
         case 8: return "house.lodge"  // Hotel
@@ -36,7 +38,7 @@ struct HomeMenuView: View {
             LazyHStack() {
                 ForEach(sortedCategories, id: \.id) { category in
                     NavigationLink {
-                        PostListView()
+                        PostListView(categoryId: category.id)
                     } label: {
                         VStack {
                             Image(systemName: categoryIcon(for: category.id))

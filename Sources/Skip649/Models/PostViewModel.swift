@@ -18,10 +18,8 @@ class PostViewModel {
         print("Fetched \(posts.count) posts")
     }
     
-//    func fetchPostsByCategory(_ category: Int) {
-//        restData.fetchPosts(byCategory: category) { fetchedPosts in
-//            self.posts = fetchedPosts
-//            print("Fetched \(fetchedPosts.count) posts")
-//        }
-//    }
+    func fetchPostsByCategory(_ categoryId: Int) async throws {
+        posts = try await restData.fetchPostsByCategory(categoryId: categoryId)
+        print("Fetched \(posts.count) posts for category \(categoryId)")
+    }
 }

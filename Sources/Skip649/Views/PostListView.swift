@@ -9,12 +9,14 @@
 import SwiftUI
 
 struct PostListView: View {
-    @State private var viewModel = PostViewModel()
     @State private var categories: [Category] = []
     @State private var error: Error? = nil
     @State private var isLoading = false
     private let restData = RestData.shared
     
+    let categoryId: Int
+    @State private var viewModel = PostViewModel()
+
     var body: some View {
         Group {
             if isLoading {
@@ -32,7 +34,15 @@ struct PostListView: View {
                 }
             } else {
                 List(viewModel.posts, id: \.id) { post in
-                    PostListRowView(post: post, categories: categories)
+                    NavigationLink {
+                        PostDetailView(
+                            title: post.title.rendered.decodeHTML(),
+                            content: post.content.rendered.decodeHTML(),
+                            imageURL: post.featuredImageURL
+                        )
+                    } label: {
+                        PostListRowView(post: post, categories: categories)
+                    }
                 }
                 .listStyle(.plain)
             }
@@ -50,12 +60,13 @@ struct PostListView: View {
         error = nil
         
         do {
-            // Load categories
-            categories = try await restData.fetchCategories()
+            // Load categories and posts concurrently
+            async let categoriesResult = restData.fetchCategories()
+            async let postsResult = viewModel.fetchPostsByCategory(categoryId)
             
-            // Load posts
-            try await viewModel.fetchPosts()
-            error = nil
+            // Wait for both to complete
+            categories = try await categoriesResult
+            try await postsResult
         } catch let fetchError {
             //error = fetchError
         }
@@ -65,8 +76,9 @@ struct PostListView: View {
 }
 
 
-struct PostListView_Previews: PreviewProvider {
-    static var previews: some View {
-        PostListView()
-    }
-}
+
+//struct PostListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        PostListView()
+//    }
+//}
