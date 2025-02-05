@@ -39,7 +39,6 @@ struct HomeMenuView: View {
                         PostListView()
                     } label: {
                         VStack {
-                            //#if !SKIP
                             Image(systemName: categoryIcon(for: category.id))
                             Text(category.name)
                                 .font(.caption)
